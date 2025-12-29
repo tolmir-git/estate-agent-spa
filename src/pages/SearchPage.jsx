@@ -1,5 +1,7 @@
 import { useState } from "react";
 import propertiesData from "../data/properties.json";
+import PropertyCard from "../components/PropertyCard";
+
 
 function SearchPage() {
   const properties = propertiesData.properties;
@@ -131,23 +133,12 @@ function SearchPage() {
       {/* PROPERTY LIST */}
       <div>
         {filteredProperties.map((property) => (
-          <div
-            key={property.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "15px",
-              marginBottom: "15px",
-              background: "#fff",
-            }}
-          >
-            <h3>{property.type}</h3>
-            <p>{property.location}</p>
-            <p>
-              <strong>£{property.price}</strong>
-            </p>
-            <p>{property.bedrooms} bedrooms</p>
-          </div>
+            <PropertyCard
+                key={property.id}
+                property={property}
+            />
         ))}
+
       </div>
     </div>
   );
