@@ -14,7 +14,7 @@ function PropertyDetails() {
 
 
   return (
-  <div style={{ padding: "20px", maxWidth: "800px" }}>
+  <div className="container">
     <Link to="/">← Back to search</Link>
 
     <h2>{property.type}</h2>
