@@ -8,23 +8,53 @@ function PropertyDetails() {
     (p) => p.id === id
   );
 
-  if (!property) {
-    return <p>Property not found</p>;
+  function formatDate(added) {
+    return `${added.day} ${added.month} ${added.year}`;
   }
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <Link to="/">← Back to search</Link>
 
-      <h2>{property.type}</h2>
-      <p>{property.location}</p>
-      <p>
-        <strong>£{property.price}</strong>
-      </p>
-      <p>{property.bedrooms} bedrooms</p>
-      <p>{property.description}</p>
-    </div>
-  );
+  return (
+  <div style={{ padding: "20px", maxWidth: "800px" }}>
+    <Link to="/">← Back to search</Link>
+
+    <h2>{property.type}</h2>
+    <p>{property.location}</p>
+
+    {property.picture && (
+    <img
+        src={`/${property.picture}`}
+        alt={property.type}
+        style={{
+        width: "100%",
+        maxWidth: "600px",
+        margin: "20px 0",
+        }}
+    />
+    )}
+
+
+    <p>
+      <strong>Price:</strong> £{property.price}
+    </p>
+
+    <p>
+      <strong>Bedrooms:</strong> {property.bedrooms}
+    </p>
+
+    <p>
+      <strong>Tenure:</strong> {property.tenure}
+    </p>
+
+    <p>
+      <strong>Date added:</strong> {formatDate(property.added)}
+    </p>
+
+    <p style={{ marginTop: "20px" }}>
+      {property.description}
+    </p>
+  </div>
+);
+
 }
 
 export default PropertyDetails;
