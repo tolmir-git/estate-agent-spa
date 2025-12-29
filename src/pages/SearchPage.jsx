@@ -53,7 +53,7 @@ function SearchPage() {
   });
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="container">
       <h2>Search Page</h2>
 
       <p>Total properties loaded: {properties.length}</p>
@@ -131,7 +131,7 @@ function SearchPage() {
       </div>
 
       {/* PROPERTY LIST */}
-      <div>
+      <div className="property-grid">
         {filteredProperties.map((property) => (
             <PropertyCard
                 key={property.id}

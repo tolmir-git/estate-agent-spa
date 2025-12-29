@@ -18,3 +18,157 @@ a {
   margin: 0 auto;
   padding: 20px;
 }
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.property-card {
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.property-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.property-card h3 {
+  margin: 10px 0 5px;
+}
+.property-card p {
+  margin: 5px 0;
+}
+.property-card a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #fff;
+  background-color: #0066cc;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.property-card a:hover {
+  background-color: #004999;
+}
+.property-details img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.property-details {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.property-details h2 {
+  margin-top: 0;
+}
+.property-details p {
+  margin: 10px 0;
+}
+.property-details a {
+  display: inline-block;
+  margin-top: 20px;
+  color: #fff;
+  background-color: #0066cc;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.property-details a:hover {
+  background-color: #004999;
+}
+.button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #0066cc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.button:hover {
+  background-color: #004999;
+}
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.input-field:focus {
+  border-color: #0066cc;
+  outline: none;
+}
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.form h3 {
+  margin-top: 0;
+}
+.form button {
+  background-color: #0066cc;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.form button:hover {
+  background-color: #004999;
+}
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+.success-message {
+  color: green;
+  margin-top: 10px;
+}
+.loading {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 50px;
+}
+.header {
+  background-color: #0066cc;
+  color: #fff;
+  padding: 15px 20px;
+  text-align: center;
+}
+.header h1 {
+  margin: 0;
+}
+.header a {
+  color: #fff;
+  text-decoration: none;
+}
+.header a:hover {
+  text-decoration: underline;
+}
+.footer {
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: center;
+  padding: 15px 20px;
+  margin-top: 40px;
+  border-top: 1px solid #ddd;
+}
+.footer p {
+  margin: 0;
+}
