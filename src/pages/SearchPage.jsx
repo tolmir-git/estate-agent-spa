@@ -8,7 +8,15 @@ function SearchPage() {
     type: "",
     minPrice: "",
     maxPrice: "",
-  });
+    minBedrooms: "",
+    postcode: "",
+    addedAfter: "",
+});
+    function getPropertyDate(property) {
+  const { year, month, day } = property.added;
+
+  return new Date(`${month} ${day}, ${year}`);
+}
 
   const filteredProperties = properties.filter((property) => {
     if (filters.type && property.type !== filters.type) {
@@ -22,6 +30,22 @@ function SearchPage() {
     if (filters.maxPrice && property.price > Number(filters.maxPrice)) {
       return false;
     }
+    if (filters.minBedrooms && property.bedrooms < Number(filters.minBedrooms)) {
+      return false;
+    }
+    if (filters.postcode && !property.postcode.toLowerCase().includes(filters.postcode.toLowerCase())) {
+      return false;
+    }
+    if (filters.addedAfter) {
+    const propertyDate = getPropertyDate(property);
+    const filterDate = new Date(filters.addedAfter);
+
+    if (propertyDate < filterDate) {
+      return false;
+    }
+  }
+
+
 
     return true;
   });
@@ -69,6 +93,39 @@ function SearchPage() {
             }
           />
         </label>
+
+        <label style={{ marginLeft: "15px" }}>
+            Min Bedrooms:
+            <input
+                type="number"
+                value={filters.minBedrooms}
+                onChange={(e) =>
+                setFilters({ ...filters, minBedrooms: e.target.value })
+                }
+            />
+        </label>
+        <label style={{ marginLeft: "15px" }}>
+            Postcode:
+            <input
+                type="text"
+                value={filters.postcode}
+                onChange={(e) =>
+                setFilters({ ...filters, postcode: e.target.value })
+                }
+            />
+        </label>
+        <label style={{ marginLeft: "15px" }}>
+            Added After:
+            <input
+                type="date"
+                value={filters.addedAfter}
+                onChange={(e) =>
+                setFilters({ ...filters, addedAfter: e.target.value })
+                }
+            />
+        </label>
+
+
       </div>
 
       {/* PROPERTY LIST */}
