@@ -11,9 +11,10 @@ function PropertyCard({ property }) {
       </p>
       <p>{property.bedrooms} bedrooms</p>
 
-      <Link to={`/property/${property.id}`}>
-        View details
+      <Link to={`/property/${property.id}`} className="button">
+      View details
       </Link>
+
     </div>
   );
 }

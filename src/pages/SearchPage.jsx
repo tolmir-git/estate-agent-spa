@@ -46,6 +46,7 @@ function SearchPage() {
       return false;
     }
   }
+    
 
 
 
@@ -124,6 +125,12 @@ function SearchPage() {
             }
           />
         </div>
+        {filteredProperties.length === 0 && (
+        <p className="error-message">
+          No properties match your search criteria.
+        </p>
+)}
+
       </div>
 
       {/* PROPERTY LIST */}
@@ -137,6 +144,7 @@ function SearchPage() {
 
       </div>
     </div>
+    
   );
 }
 
