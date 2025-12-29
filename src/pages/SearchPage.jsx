@@ -5,8 +5,8 @@ import PropertyCard from "../components/PropertyCard";
 
 function SearchPage() {
   const properties = propertiesData.properties;
+  const [favourites, setFavourites] = useState([]);
   const [sortBy, setSortBy] = useState("");
-
   const [filters, setFilters] = useState({
     type: "",
     minPrice: "",
@@ -15,6 +15,7 @@ function SearchPage() {
     postcode: "",
     addedAfter: "",
 });
+
     function getPropertyDate(property) {
   const { year, month, day } = property.added;
 
@@ -153,7 +154,7 @@ function SearchPage() {
             <option value="bedrooms-desc">Bedrooms (Most first)</option>
           </select>
       </div>
-
+      
 
 
         {filteredProperties.length === 0 && (
@@ -161,6 +162,7 @@ function SearchPage() {
           No properties match your search criteria.
         </p>
 )}
+      
 
       </div>
 
@@ -168,9 +170,17 @@ function SearchPage() {
       <div className="property-grid">
         {sortedProperties.map((property) => (
             <PropertyCard
-                key={property.id}
-                property={property}
-            />
+        key={property.id}
+        property={property}
+        isFavourite={favourites.includes(property.id)}
+        toggleFavourite={() =>
+          setFavourites((prev) =>
+            prev.includes(property.id)
+              ? prev.filter((id) => id !== property.id)
+              : [...prev, property.id]
+          )
+        }
+      />
         ))}
 
       </div>

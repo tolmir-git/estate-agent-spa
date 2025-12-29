@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function PropertyCard({ property }) {
+function PropertyCard({ property, isFavourite, toggleFavourite }) {
   return (
     <div className="property-card">
 
@@ -14,6 +14,13 @@ function PropertyCard({ property }) {
       <Link to={`/property/${property.id}`} className="button">
       View details
       </Link>
+      <button
+      onClick={toggleFavourite}
+      className="button"
+      style={{ marginLeft: "10px" }}
+      >
+      {isFavourite ? "★ Favourite" : "☆ Add to favourites"}
+    </button>
 
     </div>
   );
