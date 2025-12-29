@@ -14,7 +14,7 @@ function PropertyDetails() {
 
 
   return (
-  <div className="container">
+  <div className="container property-details">
     <Link to="/">← Back to search</Link>
 
     <h2>{property.type}</h2>

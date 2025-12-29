@@ -59,75 +59,71 @@ function SearchPage() {
       <p>Total properties loaded: {properties.length}</p>
 
       {/* FILTER UI */}
-      <div style={{ marginBottom: "20px" }}>
-        <label>
-          Property Type:
-          <select
-            value={filters.type}
+      <div className="form">
+        <h3>Filter properties</h3>
+
+        <div className="form-group">
+          <label className="label">Property Type</label>
+          <select className="input-field" value={filters.type}
             onChange={(e) =>
-              setFilters({ ...filters, type: e.target.value })
-            }
-          >
+              setFilters({ ...filters, type: e.target.value })}>            
             <option value="">Any</option>
             <option value="House">House</option>
-            <option value="Flat">Flat</option>
+            <option value="Flat">Flat</option></select>
+        </div>
+        <div className="form-group">
+          <label className="label">Min Price:</label>
+          <select className="input-field" type="number" value={filters.minPrice}
+            onChange={(e) =>
+              setFilters({ ...filters, minPrice: e.target.value })}>
+            <option value="">Any</option>
+            <option value="50000">£50,000</option>
+            <option value="100000">£100,000</option>
+            <option value="250000">£250,000</option>
           </select>
-        </label>
+        </div>
 
-        <label style={{ marginLeft: "15px" }}>
-          Min Price:
+        <div className="form-group">
+          <label className="label">Max Price:</label>
+          <select className="input-field" type="number" value={filters.maxPrice}
+            onChange={(e) =>
+              setFilters({ ...filters, maxPrice: e.target.value })}>
+            <option value="">Any</option>
+            <option value="100000">£100,000</option>
+            <option value="250000">£250,000</option>
+            <option value="500000">£500,000</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="label">Min Bedrooms:</label>
           <input
             type="number"
-            value={filters.minPrice}
+            value={filters.minBedrooms}
             onChange={(e) =>
-              setFilters({ ...filters, minPrice: e.target.value })
+              setFilters({ ...filters, minBedrooms: e.target.value })
             }
           />
-        </label>
-
-        <label style={{ marginLeft: "15px" }}>
-          Max Price:
+        </div>
+        <div className="form-group">
+          <label className="label">Postcode:</label>
           <input
-            type="number"
-            value={filters.maxPrice}
+            type="text"
+            value={filters.postcode}
             onChange={(e) =>
-              setFilters({ ...filters, maxPrice: e.target.value })
+              setFilters({ ...filters, postcode: e.target.value })
             }
           />
-        </label>
-
-        <label style={{ marginLeft: "15px" }}>
-            Min Bedrooms:
-            <input
-                type="number"
-                value={filters.minBedrooms}
-                onChange={(e) =>
-                setFilters({ ...filters, minBedrooms: e.target.value })
-                }
-            />
-        </label>
-        <label style={{ marginLeft: "15px" }}>
-            Postcode:
-            <input
-                type="text"
-                value={filters.postcode}
-                onChange={(e) =>
-                setFilters({ ...filters, postcode: e.target.value })
-                }
-            />
-        </label>
-        <label style={{ marginLeft: "15px" }}>
-            Added After:
-            <input
-                type="date"
-                value={filters.addedAfter}
-                onChange={(e) =>
-                setFilters({ ...filters, addedAfter: e.target.value })
-                }
-            />
-        </label>
-
-
+        </div>
+        <div className="form-group">
+          <label className="label">Added After:</label>
+          <input
+            type="date"
+            value={filters.addedAfter}
+            onChange={(e) =>
+              setFilters({ ...filters, addedAfter: e.target.value })
+            }
+          />
+        </div>
       </div>
 
       {/* PROPERTY LIST */}

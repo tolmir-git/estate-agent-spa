@@ -2,24 +2,9 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <header
-      style={{
-        padding: "15px 20px",
-        background: "#222",
-        color: "#fff",
-        marginBottom: "20px",
-      }}
-    >
-      <Link
-        to="/"
-        style={{
-          color: "#fff",
-          textDecoration: "none",
-          fontSize: "20px",
-          fontWeight: "bold",
-        }}
-      >
-        Estate Agent SPA
+    <header className="header">
+      <Link to="/">
+        <h1>Estate Agent SPA</h1>
       </Link>
     </header>
   );

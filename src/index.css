@@ -78,6 +78,7 @@ a {
   padding: 10px 15px;
   border-radius: 4px;
   text-decoration: none;
+  margin:1rem;
 }
 .property-details a:hover {
   background-color: #004999;
@@ -117,6 +118,7 @@ a {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  margin-bottom: 2rem;
 }
 .form h3 {
   margin-top: 0;
