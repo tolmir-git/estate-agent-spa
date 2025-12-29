@@ -5,6 +5,7 @@ import PropertyCard from "../components/PropertyCard";
 
 function SearchPage() {
   const properties = propertiesData.properties;
+  const [sortBy, setSortBy] = useState("");
 
   const [filters, setFilters] = useState({
     type: "",
@@ -46,12 +47,26 @@ function SearchPage() {
       return false;
     }
   }
+  
     
 
 
 
     return true;
   });
+  const sortedProperties = [...filteredProperties];
+
+    if (sortBy === "price-asc") {
+      sortedProperties.sort((a, b) => a.price - b.price);
+    }
+
+    if (sortBy === "price-desc") {
+      sortedProperties.sort((a, b) => b.price - a.price);
+    }
+
+    if (sortBy === "bedrooms-desc") {
+      sortedProperties.sort((a, b) => b.bedrooms - a.bedrooms);
+    }
 
   return (
     <div className="container">
@@ -125,6 +140,22 @@ function SearchPage() {
             }
           />
         </div>
+        <div className="form-group">
+          <label className="label">Sort by</label>
+          <select
+            className="input-field"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="">None</option>
+            <option value="price-asc">Price (Low → High)</option>
+            <option value="price-desc">Price (High → Low)</option>
+            <option value="bedrooms-desc">Bedrooms (Most first)</option>
+          </select>
+      </div>
+
+
+
         {filteredProperties.length === 0 && (
         <p className="error-message">
           No properties match your search criteria.
@@ -135,7 +166,7 @@ function SearchPage() {
 
       {/* PROPERTY LIST */}
       <div className="property-grid">
-        {filteredProperties.map((property) => (
+        {sortedProperties.map((property) => (
             <PropertyCard
                 key={property.id}
                 property={property}

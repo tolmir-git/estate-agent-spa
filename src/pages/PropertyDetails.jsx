@@ -24,11 +24,7 @@ function PropertyDetails() {
     <img
         src={`/${property.picture}`}
         alt={property.type}
-        style={{
-        width: "100%",
-        maxWidth: "600px",
-        margin: "20px 0",
-        }}
+        className="property-image"
     />
     )}
 
