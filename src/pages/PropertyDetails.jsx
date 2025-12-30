@@ -11,13 +11,19 @@ function PropertyDetails() {
   if (!property) {
     return <p>Property not found</p>;
   }
-    const images = property.pictures
-    ? property.pictures
-    : property.picture
-    ? [property.picture]
-    : [];
-  const [mainImage, setMainImage] = useState(
-  images.length > 0 ? images[0] : null
+    const allImages = property.pictures || [];
+
+// Property photos only (exclude floor plans)
+const photos = allImages.filter(
+  (img) => !img.toLowerCase().includes("floorplan")
+);
+
+// Floor plan (single image)
+const floorPlan = allImages.find(
+  (img) => img.toLowerCase().includes("floorplan")
+);
+const [mainImage, setMainImage] = useState(
+  photos.length > 0 ? photos[0] : null
 );
 
 function formatDate(added) {
@@ -44,7 +50,7 @@ function formatDate(added) {
     </div>
 
     <div className="thumbnail-row">
-      {images.map((img, index) => (
+      {photos.map((img, index) => (
         <img
           key={index}
           src={`/${img}`}
@@ -56,6 +62,16 @@ function formatDate(added) {
         />
       ))}
     </div>
+    {floorPlan && (
+  <div className="floorplan-section">
+    <h3>Floor Plan</h3>
+    <img
+      src={`/${floorPlan}`}
+      alt="Property floor plan"
+      className="floorplan-image"
+    />
+  </div>
+)}
   </div>
 )}
 
