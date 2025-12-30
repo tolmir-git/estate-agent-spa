@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import propertiesData from "../data/properties.json";
+import { useState } from "react";
 
 function PropertyDetails() {
   const { id } = useParams();
@@ -15,6 +16,9 @@ function PropertyDetails() {
     : property.picture
     ? [property.picture]
     : [];
+  const [mainImage, setMainImage] = useState(
+  images.length > 0 ? images[0] : null
+);
 
 function formatDate(added) {
   if (!added) {
@@ -33,18 +37,28 @@ function formatDate(added) {
     <h2>{property.type}</h2>
     <p>{property.location}</p>
 
-    {images.length > 0 && (
+    {mainImage && (
   <div className="property-gallery">
-    {images.map((img, index) => (
-      <img
-        key={index}
-        src={`/${img}`}
-        alt={`${property.type} view ${index + 1}`}
-        className="property-image"
-      />
-    ))}
+    <div className="main-image">
+      <img src={`/${mainImage}`} alt="Main property view" />
+    </div>
+
+    <div className="thumbnail-row">
+      {images.map((img, index) => (
+        <img
+          key={index}
+          src={`/${img}`}
+          alt={`Property view ${index + 1}`}
+          className={`thumbnail ${
+            img === mainImage ? "active" : ""
+          }`}
+          onClick={() => setMainImage(img)}
+        />
+      ))}
+    </div>
   </div>
 )}
+
 
 
 
