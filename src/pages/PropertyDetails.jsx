@@ -7,10 +7,23 @@ function PropertyDetails() {
   const property = propertiesData.properties.find(
     (p) => p.id === id
   );
-
-  function formatDate(added) {
-    return `${added.day} ${added.month} ${added.year}`;
+  if (!property) {
+    return <p>Property not found</p>;
   }
+    const images = property.pictures
+    ? property.pictures
+    : property.picture
+    ? [property.picture]
+    : [];
+
+function formatDate(added) {
+  if (!added) {
+    return "Date not available";
+  }
+
+  return `${added.day} ${added.month} ${added.year}`;
+}
+
 
 
   return (
@@ -20,13 +33,20 @@ function PropertyDetails() {
     <h2>{property.type}</h2>
     <p>{property.location}</p>
 
-    {property.picture && (
-    <img
-        src={`/${property.picture}`}
-        alt={property.type}
+    {images.length > 0 && (
+  <div className="property-gallery">
+    {images.map((img, index) => (
+      <img
+        key={index}
+        src={`/${img}`}
+        alt={`${property.type} view ${index + 1}`}
         className="property-image"
-    />
-    )}
+      />
+    ))}
+  </div>
+)}
+
+
 
 
     <p>
@@ -42,8 +62,9 @@ function PropertyDetails() {
     </p>
 
     <p>
-      <strong>Date added:</strong> {formatDate(property.added)}
-    </p>
+  <strong>Date added:</strong>{" "}
+  {property.added ? formatDate(property.added) : "Date not available"}
+</p>
 
     <p style={{ marginTop: "20px" }}>
       {property.description}

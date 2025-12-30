@@ -8,7 +8,14 @@
       "tenure": "Freehold",
       "description": "Attractive three bedroom semi-detached family home situated within 0.5 miles of Petts Wood station...",
       "location": "Petts Wood Road, Petts Wood, Orpington BR5",
-      "picture": "images/prop1pic1small.jpg",
+      "pictures": [
+                  "images/prop1pic1.jpg",
+                  "images/prop1pic2.jpg",
+                  "images/prop1pic3.jpg",
+                  "images/prop1pic4.jpg",
+                  "images/prop1pic5.jpg",
+                  "images/prop1pic6.jpg"
+                ],
       "url": "properties/prop1.html",
       "added": {
         "month": "October",
@@ -24,7 +31,14 @@
       "tenure": "Freehold",
       "description": "Presented in excellent decorative order throughout is this two double bedroom...",
       "location": "Crofton Road Orpington BR6",
-      "picture": "images/prop2pic1small.jpg",
+      "pictures": [
+                  "images/prop2pic1.jpg",
+                  "images/prop2pic2.jpg",
+                  "images/prop2pic3.jpg",
+                  "images/prop2pic4.jpg",
+                  "images/prop2pic5.jpg",
+                  "images/prop2pic6.jpg"
+                ],
       "url": "properties/prop2.html",
       "added": {
         "month": "September",
