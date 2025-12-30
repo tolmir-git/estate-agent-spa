@@ -1,11 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import propertiesData from "../data/properties.json";
 import { useState } from "react";
+import { useFavourites } from "../context/FavouritesContext";
 
 
 function PropertyDetails() {
   const { id } = useParams();
-
+  const { addFavourite, removeFavourite, isFavourite } = useFavourites();
   const property = propertiesData.properties.find(
     (p) => p.id === id
   );
@@ -43,6 +44,19 @@ function formatDate(added) {
     <Link to="/">← Back to search</Link>
 
     <h2>{property.type}</h2>
+    <button
+  className="button"
+  onClick={() =>
+    isFavourite(property.id)
+      ? removeFavourite(property.id)
+      : addFavourite(property)
+  }
+>
+  {isFavourite(property.id)
+    ? "Remove from favourites"
+    : "Add to favourites"}
+</button>
+
     <p>{property.location}</p>
 
     {mainImage && (

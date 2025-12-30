@@ -197,6 +197,10 @@ a {
   border: 1px solid #ddd;
 }
 
+.favourites-section {
+  margin-bottom: 40px;
+}
+
 .error-message {
   color: red;
   margin-top: 10px;
