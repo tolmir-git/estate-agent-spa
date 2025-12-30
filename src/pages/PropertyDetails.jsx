@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import propertiesData from "../data/properties.json";
 import { useState } from "react";
 
+
 function PropertyDetails() {
   const { id } = useParams();
 
@@ -12,7 +13,8 @@ function PropertyDetails() {
     return <p>Property not found</p>;
   }
     const allImages = property.pictures || [];
-
+  const mapQuery = encodeURIComponent(property.location);
+  const mapUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
 // Property photos only (exclude floor plans)
 const photos = allImages.filter(
   (img) => !img.toLowerCase().includes("floorplan")
@@ -96,9 +98,23 @@ function formatDate(added) {
   {property.added ? formatDate(property.added) : "Date not available"}
 </p>
 
-    <p style={{ marginTop: "20px" }}>
-      {property.description}
-    </p>
+    <div className="description-section">
+      <h3>Description</h3>
+      <p>{property.description}</p>
+    </div>
+    <div className="map-section">
+  <h3>Location</h3>
+  <iframe
+    title="Property location map"
+    src={mapUrl}
+    width="100%"
+    height="350"
+    style={{ border: 0 }}
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
+
   </div>
 );
 
