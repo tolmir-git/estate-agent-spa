@@ -19,9 +19,10 @@ a {
   padding: 20px;
 }
 .property-grid {
+  flex: 3;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
 }
 
 .property-card {
@@ -202,25 +203,21 @@ a {
 }
 
 .drag-layout {
-  display: grid;
-  gap: 20px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
 }
 
-.drag-layout.with-favourites {
-  grid-template-columns: 2fr 1fr;
-}
-
-.drag-layout.full-width {
-  grid-template-columns: 1fr;
-}
 
 
 .favourites-panel {
-  background: #fff;
-  padding: 15px;
-  border: 2px dashed #0066cc;
-  border-radius: 6px;
-  min-height: 300px;
+  flex: 1;
+  min-height: 300px;        
+  padding: 16px;
+  border: 2px dashed #ccc;
+  background: #fafafa;
+  position: sticky;        
+  top: 20px;
 }
 
 .error-message {
