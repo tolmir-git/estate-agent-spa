@@ -201,6 +201,28 @@ a {
   margin-bottom: 40px;
 }
 
+.drag-layout {
+  display: grid;
+  gap: 20px;
+}
+
+.drag-layout.with-favourites {
+  grid-template-columns: 2fr 1fr;
+}
+
+.drag-layout.full-width {
+  grid-template-columns: 1fr;
+}
+
+
+.favourites-panel {
+  background: #fff;
+  padding: 15px;
+  border: 2px dashed #0066cc;
+  border-radius: 6px;
+  min-height: 300px;
+}
+
 .error-message {
   color: red;
   margin-top: 10px;

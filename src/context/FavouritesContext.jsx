@@ -1,34 +1,42 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const FavouritesContext = createContext();
 
 export function FavouritesProvider({ children }) {
-  const [favourites, setFavourites] = useState(() => {
-    const stored = localStorage.getItem("favourites");
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [favourites, setFavourites] = useState([]);
 
-  useEffect(() => {
-    localStorage.setItem("favourites", JSON.stringify(favourites));
-  }, [favourites]);
+function addFavourite(property) {
+  setFavourites((prev) =>
+    prev.find((p) => p.id === property.id)
+      ? prev
+      : [...prev, property]
+  );
+}
 
-  function addFavourite(property) {
-    if (!favourites.find((p) => p.id === property.id)) {
-      setFavourites([...favourites, property]);
-    }
-  }
+function removeFavourite(id) {
+  setFavourites((prev) =>
+    prev.filter((property) => property.id !== id)
+  );
+}
 
-  function removeFavourite(id) {
-    setFavourites(favourites.filter((p) => p.id !== id));
-  }
+function reorderFavourites(newOrder) {
+  setFavourites(newOrder);
+}
+
 
   function isFavourite(id) {
-    return favourites.some((p) => p.id === id);
+    return favourites.some((property) => property.id === id);
   }
 
   return (
     <FavouritesContext.Provider
-      value={{ favourites, addFavourite, removeFavourite, isFavourite }}
+      value={{
+        favourites,
+        addFavourite,
+        removeFavourite,
+        reorderFavourites,
+        isFavourite,
+      }}
     >
       {children}
     </FavouritesContext.Provider>

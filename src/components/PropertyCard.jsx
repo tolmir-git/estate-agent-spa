@@ -1,27 +1,50 @@
 import { Link } from "react-router-dom";
+import { useFavourites } from "../context/FavouritesContext";
 
-function PropertyCard({ property, isFavourite, toggleFavourite }) {
+function PropertyCard({ property }) {
+  const {
+    addFavourite,
+    removeFavourite,
+    isFavourite,
+  } = useFavourites();
+
+  const favourite = isFavourite(property.id);
+
+  function handleFavouriteClick() {
+    if (favourite) {
+      removeFavourite(property.id);
+    } else {
+      addFavourite(property);
+    }
+  }
+
   return (
     <div className="property-card">
+      <img
+        src={`/${property.pictures?.[0]}`}
+        alt={property.type}
+      />
 
       <h3>{property.type}</h3>
       <p>{property.location}</p>
-      <p>
-        <strong>£{property.price}</strong>
-      </p>
+      <p>£{property.price}</p>
       <p>{property.bedrooms} bedrooms</p>
 
-      <Link to={`/property/${property.id}`} className="button">
-      View details
-      </Link>
       <button
-      onClick={toggleFavourite}
-      className="button"
-      style={{ marginLeft: "10px" }}
+        className="button"
+        onClick={handleFavouriteClick}
       >
-      {isFavourite ? "★ Favourite" : "☆ Add to favourites"}
-    </button>
+        {favourite ? "Remove from favourites" : "Add to favourites"}
+      </button>
 
+      <br />
+
+      <Link
+        to={`/property/${property.id}`}
+        className="button"
+      >
+        View details
+      </Link>
     </div>
   );
 }
