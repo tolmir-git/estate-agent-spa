@@ -15,6 +15,7 @@ function SearchPage() {
     favourites,
     addFavourite,
     reorderFavourites,
+    removeFavourite,
   } = useFavourites();
 
   const [showFavouritesPanel, setShowFavouritesPanel] = useState(false);
@@ -25,46 +26,79 @@ function SearchPage() {
     minPrice: "",
     maxPrice: "",
     minBedrooms: "",
+    maxBedrooms: "",
     postcode: "",
     addedAfter: "",
   });
+  const [isDragging, setIsDragging] = useState(false);
 
   function getPropertyDate(property) {
     const { year, month, day } = property.added;
     return new Date(`${month} ${day}, ${year}`);
   }
 
-  function handleDragEnd(result) {
-    const { source, destination } = result;
-    if (!destination) return;
+function handleDragEnd(result) {
+  const { source, destination } = result;
+  if (!destination) return;
 
-    // Reorder favourites
-    if (
-      source.droppableId === "favourites" &&
-      destination.droppableId === "favourites"
-    ) {
-      const items = Array.from(favourites);
-      const [moved] = items.splice(source.index, 1);
-      items.splice(destination.index, 0, moved);
-      reorderFavourites(items);
-      return;
-    }
-
-    // Add to favourites
-    if (
-      source.droppableId === "properties" &&
-      destination.droppableId === "favourites"
-    ) {
-      addFavourite(displayedProperties[source.index]);
-      setShowFavouritesPanel(true);
-    }
+  //  Block reordering inside properties
+  if (
+    source.droppableId === "properties" &&
+    destination.droppableId === "properties"
+  ) {
+    return;
   }
+
+  //  Reorder favourites
+  if (
+    source.droppableId === "favourites" &&
+    destination.droppableId === "favourites"
+  ) {
+    const items = Array.from(favourites);
+    const [moved] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, moved);
+    reorderFavourites(items);
+    return;
+  }
+
+  //  Add to favourites
+  if (
+    source.droppableId === "properties" &&
+    destination.droppableId === "favourites"
+  ) {
+    addFavourite(displayedProperties[source.index]);
+    setShowFavouritesPanel(true);
+    return;
+  }
+
+  //  REMOVE from favourites (drag OUT)
+  if (
+    source.droppableId === "favourites" &&
+    destination.droppableId === "properties"
+  ) {
+    removeFavourite(favourites[source.index].id);
+    return;
+  }
+}
+
+
+
+
 
   const filteredProperties = properties.filter((property) => {
     if (filters.type && property.type !== filters.type) return false;
     if (filters.minPrice && property.price < Number(filters.minPrice)) return false;
     if (filters.maxPrice && property.price > Number(filters.maxPrice)) return false;
-    if (filters.minBedrooms && property.bedrooms < Number(filters.minBedrooms)) return false;
+    if (
+      filters.minBedrooms &&
+      property.bedrooms < Number(filters.minBedrooms)
+    ) return false;
+
+    if (
+      filters.maxBedrooms &&
+      property.bedrooms > Number(filters.maxBedrooms)
+    ) return false;
+
 
     if (
       filters.postcode &&
@@ -151,12 +185,25 @@ function SearchPage() {
           <label>Min Bedrooms</label>
           <input
             type="number"
+            min="0"
             value={filters.minBedrooms}
             onChange={(e) =>
               setFilters({ ...filters, minBedrooms: e.target.value })
             }
           />
         </div>
+        <div className="form-group">
+          <label>Max Bedrooms</label>
+          <input
+            type="number"
+            min="0"
+            value={filters.maxBedrooms}
+            onChange={(e) =>
+              setFilters({ ...filters, maxBedrooms: e.target.value })
+            }
+          />
+        </div>
+
 
         <div className="form-group">
           <label>Postcode</label>
@@ -213,22 +260,63 @@ function SearchPage() {
       {displayedProperties.length === 0 ? (
         <p>No properties match your search.</p>
       ) : (
-        <DragDropContext
-          onDragStart={() => setShowFavouritesPanel(true)}
-          onDragEnd={handleDragEnd}
-        >
-          <div className="drag-layout">
-            <Droppable droppableId="properties">
+          <DragDropContext
+            onDragStart={() => {
+              setShowFavouritesPanel(true);
+              setIsDragging(true);
+            }}
+            onDragEnd={(result) => {
+              setIsDragging(false);
+              handleDragEnd(result);
+            }}
+          >
+
+        <div className="drag-layout">
+          {/* PROPERTIES */}
+          <Droppable droppableId="properties">
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className="property-grid"
+              >
+                {displayedProperties.map((property, index) => (
+                  <Draggable
+                    key={property.id}
+                    draggableId={property.id}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <PropertyCard property={property} />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+
+          {/* FAVOURITES */}
+          {showFavouritesPanel && (
+            <Droppable droppableId="favourites">
               {(provided) => (
                 <div
-                  className="property-grid"
                   ref={provided.innerRef}
                   {...provided.droppableProps}
+                  className={`favourites-panel ${isDragging ? "drag-active" : ""}`}
                 >
-                  {displayedProperties.map((property, index) => (
+                  <h3>Favourites</h3>
+
+                  {favourites.map((property, index) => (
                     <Draggable
                       key={property.id}
-                      draggableId={property.id}
+                      draggableId={`fav-${property.id}`}
                       index={index}
                     >
                       {(provided) => (
@@ -246,42 +334,10 @@ function SearchPage() {
                 </div>
               )}
             </Droppable>
+          )}
+        </div>
+      </DragDropContext>
 
-            {showFavouritesPanel && (
-              <Droppable droppableId="favourites">
-                {(provided) => (
-                  <div
-                    className="favourites-panel"
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    <h3>Favourites</h3>
-                    {favourites.length === 0 && <p>Drag here</p>}
-
-                    {favourites.map((property, index) => (
-                      <Draggable
-                        key={property.id}
-                        draggableId={`fav-${property.id}`}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <PropertyCard property={property} />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            )}
-          </div>
-        </DragDropContext>
       )}
     </div>
   );

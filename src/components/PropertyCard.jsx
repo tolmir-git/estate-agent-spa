@@ -31,10 +31,13 @@ function PropertyCard({ property }) {
       <p>{property.bedrooms} bedrooms</p>
 
       <button
-        className="button"
-        onClick={handleFavouriteClick}
+        onClick={() =>
+          isFavourite(property.id)
+            ? removeFavourite(property.id)
+            : addFavourite(property)
+        }
       >
-        {favourite ? "Remove from favourites" : "Add to favourites"}
+        {isFavourite(property.id) ? "Remove from favourites" : "Add to favourites"}
       </button>
 
       <br />

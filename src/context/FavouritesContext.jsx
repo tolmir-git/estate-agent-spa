@@ -1,9 +1,14 @@
 import { createContext, useContext, useState } from "react";
+import { useEffect } from "react";
 
 const FavouritesContext = createContext();
 
 export function FavouritesProvider({ children }) {
-  const [favourites, setFavourites] = useState([]);
+    const [favourites, setFavourites] = useState(() => {
+        const saved = localStorage.getItem("favourites");
+        return saved ? JSON.parse(saved) : [];
+});
+
 
 function addFavourite(property) {
   setFavourites((prev) =>
@@ -18,7 +23,9 @@ function removeFavourite(id) {
     prev.filter((property) => property.id !== id)
   );
 }
-
+useEffect(() => {
+  localStorage.setItem("favourites", JSON.stringify(favourites));
+}, [favourites]);
 function reorderFavourites(newOrder) {
   setFavourites(newOrder);
 }

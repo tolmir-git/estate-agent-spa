@@ -30,6 +30,7 @@ a {
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .property-card img {
   max-width: 100%;
@@ -204,22 +205,75 @@ a {
 
 .drag-layout {
   display: flex;
-  gap: 24px;
   align-items: flex-start;
 }
 
-
-
 .favourites-panel {
-  flex: 1;
-  min-height: 300px;        
+  width: 320px;
+  min-height: 200px;
+  margin: 16px;
+  margin-top:0px;
+  border: 2px dashed #1f0677;
+  background: #fafafa;
+  transition: width 0.3s, padding 0.3s, border 0.3s, opacity 0.3s;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+
+/* When favourites are hidden */
+.drag-layout.no-favourites .favourites-panel {
+  width: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
+/* When favourites are visible */
+.drag-layout.with-favourites .favourites-panel {
+  width: 320px; /* fixed, predictable */
   padding: 16px;
   border: 2px dashed #ccc;
   background: #fafafa;
-  position: sticky;        
-  top: 20px;
 }
 
+/* Property grid adapts */
+.drag-layout.no-favourites .property-grid {
+  width: 100%;
+}
+
+.drag-layout.with-favourites .property-grid {
+  flex: 1;
+}
+
+.favourites-panel.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.favourites-panel.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.property-grid{
+  flex:1;
+}
+
+.favourites-panel.drag-active {
+  border-color: #4caf50;
+  background: #f0fff4;
+}
+
+
+
+[data-rbd-dragging="true"] .property-card {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: rotate(1deg);
+}
 .error-message {
   color: red;
   margin-top: 10px;
