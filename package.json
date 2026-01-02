@@ -8,8 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "preinstall": "rm -rf node_modules package-lock.json"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
