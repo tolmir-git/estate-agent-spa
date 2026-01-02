@@ -11,7 +11,13 @@ function PropertyDetails() {
     (p) => p.id === id
   );
   if (!property) {
-    return <p>Property not found</p>;
+    return (
+      <div className="container">
+        <h2>Property not found</h2>
+        <p>The requested property does not exist.</p>
+        <Link to="/">Return to search</Link>
+      </div>
+    );
   }
     const allImages = property.pictures || [];
   const mapQuery = encodeURIComponent(property.location);

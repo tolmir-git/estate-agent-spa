@@ -256,6 +256,7 @@ function handleDragEnd(result) {
         </label>
       </div>
 
+
       {/* PROPERTY LIST + FAVOURITES */}
       {displayedProperties.length === 0 ? (
         <p>No properties match your search.</p>
@@ -270,73 +271,79 @@ function handleDragEnd(result) {
               handleDragEnd(result);
             }}
           >
-
-        <div className="drag-layout">
-          {/* PROPERTIES */}
-          <Droppable droppableId="properties">
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="property-grid"
-              >
-                {displayedProperties.map((property, index) => (
-                  <Draggable
-                    key={property.id}
-                    draggableId={property.id}
-                    index={index}
+            <div
+              className={`drag-layout ${
+                showFavouritesPanel ? "with-favourites" : "no-favourites"
+              }`}
+            >
+              {/* PROPERTIES */}
+              <Droppable droppableId="properties">
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className="property-grid"
                   >
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
+                    {displayedProperties.map((property, index) => (
+                      <Draggable
+                        key={property.id}
+                        draggableId={property.id}
+                        index={index}
                       >
-                        <PropertyCard property={property} />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <PropertyCard property={property} />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+    </Droppable>
 
-          {/* FAVOURITES */}
-          {showFavouritesPanel && (
-            <Droppable droppableId="favourites">
+    {/* FAVOURITES — ALWAYS MOUNTED */}
+    <Droppable droppableId="favourites">
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          className={`favourites-panel
+            ${showFavouritesPanel ? "visible" : "hidden"}
+            ${isDragging ? "drag-active" : "drag-inactive"}
+          `}
+        >
+          <h3>Favourites</h3>
+
+          {favourites.map((property, index) => (
+            <Draggable
+              key={property.id}
+              draggableId={`fav-${property.id}`}
+              index={index}
+            >
               {(provided) => (
                 <div
                   ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  className={`favourites-panel ${isDragging ? "drag-active" : ""}`}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
                 >
-                  <h3>Favourites</h3>
-
-                  {favourites.map((property, index) => (
-                    <Draggable
-                      key={property.id}
-                      draggableId={`fav-${property.id}`}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <PropertyCard property={property} />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
+                  <PropertyCard property={property} />
                 </div>
               )}
-            </Droppable>
-          )}
+            </Draggable>
+          ))}
+
+          {provided.placeholder}
         </div>
-      </DragDropContext>
+      )}
+    </Droppable>
+  </div>
+</DragDropContext>
+
 
       )}
     </div>
