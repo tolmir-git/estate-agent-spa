@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import propertiesData from "../data/properties.json";
 import { useState } from "react";
 import { useFavourites } from "../context/FavouritesContext";
+import SafeImage from "../components/SafeImage";
 
 
 function PropertyDetails() {
@@ -68,12 +69,12 @@ function formatDate(added) {
     {mainImage && (
   <div className="property-gallery">
     <div className="main-image">
-      <img src={`/${mainImage}`} alt="Main property view" />
+      <SafeImage src={`/${mainImage}`} alt="Main property view" />
     </div>
 
     <div className="thumbnail-row">
       {photos.map((img, index) => (
-        <img
+        <SafeImage
           key={index}
           src={`/${img}`}
           alt={`Property view ${index + 1}`}
@@ -87,7 +88,7 @@ function formatDate(added) {
     {floorPlan && (
   <div className="floorplan-section">
     <h3>Floor Plan</h3>
-    <img
+    <SafeImage
       src={`/${floorPlan}`}
       alt="Property floor plan"
       className="floorplan-image"

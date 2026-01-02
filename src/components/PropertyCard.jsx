@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useFavourites } from "../context/FavouritesContext";
+import SafeImage from "./SafeImage";
 
 function PropertyCard({ property }) {
   const {
@@ -20,7 +21,7 @@ function PropertyCard({ property }) {
 
   return (
     <div className="property-card">
-      <img
+      <SafeImage
         src={`/${property.pictures?.[0]}`}
         alt={property.type}
       />
