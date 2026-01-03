@@ -6,6 +6,7 @@ import SafeImage from "../components/SafeImage";
 
 
 function PropertyDetails() {
+  const [showFloorplan, setShowFloorplan] = useState(false);
   const { id } = useParams();
   const { addFavourite, removeFavourite, isFavourite } = useFavourites();
   const property = propertiesData.properties.find(
@@ -20,7 +21,7 @@ function PropertyDetails() {
       </div>
     );
   }
-    const allImages = property.pictures || [];
+  const allImages = property.pictures || [];
   const mapQuery = encodeURIComponent(property.location);
   const mapUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
 // Property photos only (exclude floor plans)
@@ -78,65 +79,74 @@ function formatDate(added) {
           key={index}
           src={`/${img}`}
           alt={`Property view ${index + 1}`}
-          className={`thumbnail ${
-            img === mainImage ? "active" : ""
-          }`}
+          className={`thumbnail ${img === mainImage ? "active" : ""}`}
           onClick={() => setMainImage(img)}
         />
       ))}
     </div>
     {floorPlan && (
-  <div className="floorplan-section">
-    <h3>Floor Plan</h3>
-    <SafeImage
-      src={`/${floorPlan}`}
-      alt="Property floor plan"
-      className="floorplan-image"
-    />
+      <div className="floorplan-section">
+        <h3>Floor Plan</h3>
+        <SafeImage
+          src={`/${floorPlan}`}
+          alt="Property floor plan"
+          className="floorplan-image"
+          onClick={() => setShowFloorplan(true)}
+        />
+      </div>
+    )}
+    {showFloorplan && (
+      <div className="modal-overlay" onClick={() => setShowFloorplan(false)}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <img src={`/${floorPlan}`} alt="Large floor plan" />
+        </div>
+      </div>
+    )}
+
   </div>
 )}
+
+
+
+
+    <div className="big-desc-group">
+      <div className="small-desc-group">
+        <h2>About the {property.type}</h2>
+      <p>
+        <strong>Price:</strong> £{property.price}
+      </p>
+
+      <p>
+        <strong>Bedrooms:</strong> {property.bedrooms}
+      </p>
+
+      <p>
+        <strong>Tenure:</strong> {property.tenure}
+      </p>
+      <p>
+        <strong>Date added:</strong>{" "}
+        {property.added ? formatDate(property.added) : "Date not available"}
+      </p> 
   </div>
-)}
 
-
-
-
-
-    <p>
-      <strong>Price:</strong> £{property.price}
-    </p>
-
-    <p>
-      <strong>Bedrooms:</strong> {property.bedrooms}
-    </p>
-
-    <p>
-      <strong>Tenure:</strong> {property.tenure}
-    </p>
-
-    <p>
-  <strong>Date added:</strong>{" "}
-  {property.added ? formatDate(property.added) : "Date not available"}
-</p>
-
-    <div className="description-section">
-      <h3>Description</h3>
-      <p>{property.description}</p>
+      <div className="description-section">
+        <h3>Description</h3>
+        <p className="bigger-description">{property.bigger_description}</p>
+      </div>
+      <div className="map-section">
+        <h3>Location</h3>
+        <iframe
+          title="Property location map"
+          src={mapUrl}
+          width="100%"
+          height="350"
+          style={{ border: 0 }}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
     </div>
-    <div className="map-section">
-  <h3>Location</h3>
-  <iframe
-    title="Property location map"
-    src={mapUrl}
-    width="100%"
-    height="350"
-    style={{ border: 0 }}
-    loading="lazy"
-    referrerPolicy="no-referrer-when-downgrade"
-  ></iframe>
 </div>
-
-  </div>
 );
 
 }
