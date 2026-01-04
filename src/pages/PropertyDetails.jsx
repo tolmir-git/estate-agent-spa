@@ -14,7 +14,7 @@ function PropertyDetails() {
   );
   if (!property) {
     return (
-      <div className="container">
+      <div className="container"role="main">
         <h2>Property not found</h2>
         <p>The requested property does not exist.</p>
         <Link to="/">Return to search</Link>
@@ -48,22 +48,29 @@ function formatDate(added) {
 
 
   return (
-  <div className="container property-details">
+  <div className="container property-details" role="main">
     <Link to="/">← Back to search</Link>
 
     <h2>{property.type}</h2>
     <button
-  className="button"
-  onClick={() =>
-    isFavourite(property.id)
-      ? removeFavourite(property.id)
-      : addFavourite(property)
-  }
->
-  {isFavourite(property.id)
-    ? "Remove from favourites"
-    : "Add to favourites"}
-</button>
+      className="button"
+      aria-pressed={isFavourite(property.id)}
+      aria-label={
+        isFavourite(property.id)
+          ? "Remove property from favourites"
+          : "Add property to favourites"
+      }
+      onClick={() =>
+        isFavourite(property.id)
+          ? removeFavourite(property.id)
+          : addFavourite(property)
+      }
+    >
+      {isFavourite(property.id)
+        ? "Remove from favourites"
+        : "Add to favourites"}
+    </button>
+
 
     <p>{property.location}</p>
 
@@ -78,30 +85,30 @@ function formatDate(added) {
         <SafeImage
           key={index}
           src={`/${img}`}
-          alt={`Property view ${index + 1}`}
+          alt={`${property.type} in ${property.location} – image ${index + 1}`}
           className={`thumbnail ${img === mainImage ? "active" : ""}`}
           onClick={() => setMainImage(img)}
         />
       ))}
     </div>
-    {floorPlan && (
-      <div className="floorplan-section">
-        <h3>Floor Plan</h3>
-        <SafeImage
-          src={`/${floorPlan}`}
-          alt="Property floor plan"
-          className="floorplan-image"
-          onClick={() => setShowFloorplan(true)}
-        />
-      </div>
-    )}
     {showFloorplan && (
-      <div className="modal-overlay" onClick={() => setShowFloorplan(false)}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <img src={`/${floorPlan}`} alt="Large floor plan" />
+      <div
+        className="modal-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Floor plan enlarged view"
+        tabIndex={-1}
+        onClick={() => setShowFloorplan(false)}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setShowFloorplan(false);
+        }}
+      >
+        <div className="modal-content">
+          <img src={`/${floorPlan}`} alt="Large floor plan view" />
         </div>
       </div>
     )}
+
 
   </div>
 )}

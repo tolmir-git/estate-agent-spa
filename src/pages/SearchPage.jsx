@@ -137,7 +137,7 @@ function handleDragEnd(result) {
   }
 
   return (
-    <div className="container">
+    <div className="container" role="main">
       <h2>Search Page</h2>
       <p>Total properties loaded: {properties.length}</p>
 

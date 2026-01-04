@@ -8,6 +8,10 @@ body {
   background-color: #f4f4f4;
   color: #333;
 }
+:focus-visible {
+  outline: 3px solid #1f0677;
+  outline-offset: 3px;
+}
 
 a {
   color: #0066cc;
