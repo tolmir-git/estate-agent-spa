@@ -30,11 +30,28 @@
 -  Missing images replaced with placeholder
 -  No app crashes during invalid interactions
 
+## Manual Testing
+
+-  Property filtering by price, type, bedrooms
+-  Sorting validation (ascending/descending)
+-  Routing between pages
+-  Favourites add/remove
+-  Drag-and-drop behaviour
+-  Responsive layout testing
+-  Image fallback behaviour
+
+## Edge Cases
+
+-  Empty favourites
+-  Invalid property ID
+-  Missing images
+-  Network image failures
+
 ## Testing and Bug Fixing
 
 During development, the application was tested continuously using manual functional testing. This involved interacting with the system as an end user would, identifying unexpected behaviour, and resolving issues as they arose. Key testing and bug-fixing examples are outlined below.
 
-Filtering and Sorting
+### Filtering and Sorting
 
 Test: Applied multiple filters and sorting options simultaneously.
 Expected Result: Only properties matching all criteria should be displayed in the correct order.
@@ -42,7 +59,7 @@ Issue Found: Logical conditions in the filtering and sorting algorithms were inc
 Fix: Filtering logic was corrected and sorting conditions refined.
 Outcome: Properties now display correctly based on selected criteria.
 
-Property Data Loading
+### Property Data Loading
 
 Test: Loaded property data from the JSON file.
 Expected Result: All properties should render correctly on the search page.
@@ -50,7 +67,7 @@ Issue Found: Properties were not loading due to incorrect data access.
 Fix: Data structure references were corrected.
 Outcome: All properties load consistently.
 
-Date Handling
+### Date Handling
 
 Test: Filtered properties using the “Added After” date.
 Expected Result: Only properties added after the selected date should appear.
@@ -58,7 +75,7 @@ Issue Found: Date combinations were incorrectly parsed.
 Fix: Dates were normalised and converted to JavaScript Date objects.
 Outcome: Date filtering works as expected.
 
-Google Maps Integration
+### Google Maps Integration
 
 Test: Loaded Google Maps iframe on the property details page.
 Expected Result: Property location map should display correctly.
@@ -66,7 +83,7 @@ Issue Found: Map failed to load due to malformed URL encoding.
 Fix: Location strings were encoded correctly before being passed to the iframe.
 Outcome: Maps now load reliably.
 
-Routing and Navigation
+### Routing and Navigation
 
 Test: Navigated between search and property detail pages.
 Expected Result: Correct pages should render without errors.
@@ -74,7 +91,7 @@ Issue Found: Router rendering errors caused incorrect page loads.
 Fix: Route configuration was corrected.
 Outcome: Navigation now functions correctly.
 
-Favourites and Drag-and-Drop Functionality
+### Favourites and Drag-and-Drop Functionality
 
 Test: Added, removed, reordered, and dragged properties in and out of favourites.
 Expected Result: Favourites should update dynamically without UI freezes.
@@ -82,7 +99,7 @@ Issue Found: Complex drag-and-drop interactions caused rendering conflicts.
 Fix: Rendering logic was restructured to allow continuous state updates during dragging.
 Outcome: Drag-and-drop now works smoothly in all scenarios.
 
-Image Handling
+### Image Handling
 
 Test: Loaded property images and thumbnails.
 Expected Result: Images should load correctly and remain clickable.
@@ -90,7 +107,7 @@ Issue Found: Broken images and thumbnail interactions failed.
 Fix: A SafeImage component with fallback handling was implemented.
 Outcome: Images now load reliably and maintain functionality.
 
-Deployment Testing
+### Deployment Testing
 
 Test: Deployed the application to Netlify.
 Expected Result: The application should build and run correctly online.

@@ -1,3 +1,5 @@
+// Client-side routing prevents direct access to invalid properties
+// Data is loaded from a static JSON source (read-only)
 import { useState } from "react";
 import propertiesData from "../data/properties.json";
 import PropertyCard from "../components/PropertyCard";
