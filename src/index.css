@@ -12,7 +12,11 @@ body {
   outline: 3px solid #1f0677;
   outline-offset: 3px;
 }
-
+.property-card:focus-within,
+button:focus {
+  outline: 3px solid #4caf50;
+  outline-offset: 2px;
+}
 a {
   color: #0066cc;
 }

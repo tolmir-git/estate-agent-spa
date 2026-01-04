@@ -20,18 +20,23 @@ function PropertyCard({ property }) {
   }
 
   return (
-    <div className="property-card">
+    <div className="property-card" aria-labelledby={`property-${property.id}`}>
       <SafeImage
         src={`/${property.pictures?.[0]}`}
         alt={property.type}
       />
-
-      <h3>{property.type}</h3>
+      <h3 id={`property-${property.id}`}>{property.type}</h3>
       <p>{property.location}</p>
       <p>£{property.price}</p>
       <p>{property.bedrooms} bedrooms</p>
 
-      <button
+      <button       
+      aria-pressed={isFavourite(property.id)}
+      aria-label={
+        isFavourite(property.id)
+          ? "Remove property from favourites"
+          : "Add property to favourites"
+      }
         onClick={() =>
           isFavourite(property.id)
             ? removeFavourite(property.id)
