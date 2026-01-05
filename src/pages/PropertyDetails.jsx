@@ -21,7 +21,10 @@ function PropertyDetails() {
       </div>
     );
   }
-
+  // opening at the top of the page when navigating to a new property
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
   const location = useLocation();
 
   useEffect(() => {

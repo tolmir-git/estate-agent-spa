@@ -117,3 +117,5 @@ Accessibility considerations include:
 ```bash
 npm install
 npm run dev
+
+## you can check the images of the website in the public/screenshots
