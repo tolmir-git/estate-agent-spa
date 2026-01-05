@@ -212,6 +212,7 @@ function SearchPage() {
           </div>
         )}
       </div>
+
         {/*display properties and DRAG&DROP CAREFULL!!11*/} 
       {displayedProperties.length === 0 ? (
         <p>No properties match your search.</p>
@@ -226,7 +227,7 @@ function SearchPage() {
             handleDragEnd(result);
           }}
         >
-          <div id="properties" className={`drag-layout ${showFavouritesPanel ? "with-favourites" : "no-favourites"}`}>
+          <div id="properties section1" className={`drag-layout ${showFavouritesPanel ? "with-favourites" : "no-favourites"}`}>
             <Droppable droppableId="properties">
               {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps} className="property-grid">
