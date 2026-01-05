@@ -67,6 +67,9 @@ a:hover {
   overflow: hidden;
   cursor: grab;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .property-card:hover {
@@ -85,6 +88,7 @@ a:hover {
   object-fit: cover;
   border-radius: 0;
   border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
 }
 
 .property-card h3 {
@@ -92,12 +96,24 @@ a:hover {
   font-size: 1.25rem;
   color: #1e293b;
   font-weight: 600;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .property-card p {
   margin: 0.25rem 1.25rem;
   font-size: 0.95rem;
   color: #64748b;
+}
+
+.property-card p:first-of-type {
+  /* Address - limit to 2 lines */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8rem;
+  line-height: 1.4;
 }
 
 .property-card p:nth-of-type(2) {
@@ -110,7 +126,7 @@ a:hover {
 .property-card p:nth-of-type(3) {
   font-weight: 500;
   color: #1e293b;
-  margin-bottom: 1rem;
+  margin-bottom: auto;
 }
 
 .property-card a,
@@ -453,6 +469,32 @@ a:hover {
   border-radius: 12px;
   margin-bottom: 2rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.form-header:hover {
+  color: #2563eb;
+}
+
+.form-content {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .form h3 {

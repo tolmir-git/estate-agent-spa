@@ -9,7 +9,6 @@ import {
   Droppable,
   Draggable,
 } from "@hello-pangea/dnd";
-
 function SearchPage() {
   const properties = propertiesData.properties;
 

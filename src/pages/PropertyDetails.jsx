@@ -48,7 +48,7 @@ function formatDate(added) {
 
 
   return (
-  <div className="container property-details" role="main">
+  <div className="container property-details" role="main" id="section1">
     <Link to="/">← Back to search</Link>
 
     <h2>{property.type}</h2>
