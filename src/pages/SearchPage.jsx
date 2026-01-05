@@ -199,12 +199,12 @@ function SearchPage() {
               </select>
             </div>
 
-            <label>
+            <label className="favourites-label">
               <input type="checkbox" checked={showFavouritesOnly} onChange={(e) => setShowFavouritesOnly(e.target.checked)} />
               {" "}Show favourites only
             </label>
 
-            <label>
+            <label className="favourites-label">
               <input type="checkbox" checked={showFavouritesPanel} onChange={(e) => setShowFavouritesPanel(e.target.checked)} />
               {" "}Show favourites panel
             </label>

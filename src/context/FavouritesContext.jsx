@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useEffect } from "react";
 
 const FavouritesContext = createContext();
-
+ {/*actually using memory to store chosen options on favourites and parsing them in the different files*/}
 export function FavouritesProvider({ children }) {
     const [favourites, setFavourites] = useState(() => {
         const saved = localStorage.getItem("favourites");

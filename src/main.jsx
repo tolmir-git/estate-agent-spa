@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { FavouritesProvider } from "./context/FavouritesContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <BrowserRouter> {/*don't forget to use only one router!!!*/}
 
     <FavouritesProvider>
       <App />

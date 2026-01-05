@@ -11,7 +11,7 @@ function Footer() {
           <h4 style={styles.footerHeading}>Quick Links</h4>
           <ul style={styles.footerList}>
             <li style={styles.footerListItem}>
-              <a href="/" style={styles.footerLink}>Browse Properties</a>
+              <a href="/#section1" style={styles.footerLink}>Browse Properties</a> {/*the only working part in the footer, leading to the id of section1*/}
             </li>
             <li style={styles.footerListItem}>
               <a href="/" style={styles.footerLink}>About Us</a>

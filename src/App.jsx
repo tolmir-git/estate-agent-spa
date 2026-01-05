@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Header />
-
+     {/*don't use router twice plsss!!*/}
       <Routes>
         <Route path="/" element={<SearchPage />} />
         <Route path="/property/:id" element={<PropertyDetails />} />

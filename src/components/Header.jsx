@@ -4,7 +4,7 @@ function Header() {
   return (
     <header className="site-header" style={styles.header}>
       <div className="container" style={styles.container}>
-        <Link to="/" style={styles.brandLink}>            
+        <Link to="/" style={styles.brandLink}>    {/*house*/}         
             <svg 
               width="32" 
               height="32" 
@@ -29,6 +29,7 @@ function Header() {
           <h1 style={styles.title}>MyEstateAgent</h1>
         </Link>
         <nav>
+           {/*leads to properties in the section1 of the page on the searchpage*/}
           <Link to="/#section1" style={styles.navLink}>Browse Properties</Link>
         </nav>
       </div>

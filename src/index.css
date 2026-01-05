@@ -176,6 +176,37 @@ a:hover {
   background-color: #d97706;
   border-color: #d97706;
 }
+/* ===== FILTERS PANEL (Collapsible) ===== */
+.filters-panel {
+  margin-bottom: 1.5rem;
+}
+
+.filters-toggle {
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+.filters-content {
+  overflow: hidden;
+  transition: 
+    max-height 0.35s ease,
+    opacity 0.25s ease;
+}
+
+.filters-content.open {
+  max-height: 1000px; /* big enough for content */
+  opacity: 1;
+}
+
+.filters-content.closed {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
 
 /* ===== PROPERTY DETAILS PAGE ===== */
 .property-details {
@@ -646,7 +677,12 @@ a:hover {
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
   transition: 0.3s all ease-in-out;
 }
-
+.favourites-label {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  display: block;
+}
 [data-rbd-dragging="true"] .property-card {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
   transform: rotate(2deg);

@@ -1,6 +1,6 @@
 function SafeImage({ src, alt, className, onClick }) {
   const fallback = "/images/placeholder.jpg";
-
+// Fallback safe image in case of error
   return (
     <img
       src={src}
@@ -10,7 +10,7 @@ function SafeImage({ src, alt, className, onClick }) {
       tabIndex={onClick ? 0 : -1}
       role={onClick ? "button" : undefined}
       aria-label={onClick ? alt : undefined}
-      style={{ cursor: onClick ? "pointer" : "default" }}
+      style={{ cursor: onClick ? "pointer" : "default" }} /*made to be able to click the image on the property details page */
       onKeyDown={(e) => {
         if (onClick && (e.key === "Enter" || e.key === " ")) {
           e.preventDefault();

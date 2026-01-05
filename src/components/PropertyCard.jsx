@@ -9,18 +9,9 @@ function PropertyCard({ property }) {
     isFavourite,
   } = useFavourites();
 
-  const favourite = isFavourite(property.id);
-
-  function handleFavouriteClick() {
-    if (favourite) {
-      removeFavourite(property.id);
-    } else {
-      addFavourite(property);
-    }
-  }
 
   return (
-    <div className="property-card" aria-labelledby={`property-${property.id}`}>
+    <div className="property-card" aria-labelledby={`property-${property.id}`}> {/*returns properties by id on the search page*/}
       <SafeImage
         src={`/${property.pictures?.[0]}`}
         alt={property.type}
