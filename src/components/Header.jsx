@@ -29,7 +29,7 @@ function Header() {
           <h1 style={styles.title}>MyEstateAgent</h1>
         </Link>
         <nav>
-          <Link to="/" style={styles.navLink}><a href="pages/PropertyDetails#section1">Browse</a></Link>
+          <Link to="/#section1" style={styles.navLink}>Browse</Link>
         </nav>
       </div>
     </header>

@@ -4,6 +4,8 @@ import { useState } from "react";
 import propertiesData from "../data/properties.json";
 import PropertyCard from "../components/PropertyCard";
 import { useFavourites } from "../context/FavouritesContext";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -11,14 +13,13 @@ import {
 } from "@hello-pangea/dnd";
 function SearchPage() {
   const properties = propertiesData.properties;
-
+  const location = useLocation();
   const {
     favourites,
     addFavourite,
     reorderFavourites,
     removeFavourite,
   } = useFavourites();
-
   const [showFavouritesPanel, setShowFavouritesPanel] = useState(false);
   const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
   const [sortBy, setSortBy] = useState("");
@@ -32,6 +33,41 @@ function SearchPage() {
     addedAfter: "",
   });
   const [isDragging, setIsDragging] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(true);
+
+
+/* 🔹 Scroll to hash target */
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const el = document.querySelector(location.hash);
+    if (!el) return;
+
+    requestAnimationFrame(() => {
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }, [location.hash]);
+
+  /* 🔹 Auto-close filters when filters change */
+
+
+
+  /* 🔹 Load filters open state */
+  useEffect(() => {
+    const saved = localStorage.getItem("filtersOpen");
+    if (saved !== null) {
+      setFiltersOpen(saved === "true");
+    }
+  }, []);
+
+  /* 🔹 Save filters open state */
+  useEffect(() => {
+    localStorage.setItem("filtersOpen", filtersOpen);
+  }, [filtersOpen]);
+
 
   function getPropertyDate(property) {
     const { year, month, day } = property.added;
@@ -125,9 +161,13 @@ function handleDragEnd(result) {
   if (sortBy === "price-desc") {
     sortedProperties.sort((a, b) => b.price - a.price);
   }
+  if (sortBy === "bedrooms-asc") {
+    sortedProperties.sort((a, b) => a.bedrooms - b.bedrooms);
+  }
   if (sortBy === "bedrooms-desc") {
     sortedProperties.sort((a, b) => b.bedrooms - a.bedrooms);
   }
+  
 
   let displayedProperties = sortedProperties;
 
@@ -143,7 +183,28 @@ function handleDragEnd(result) {
       <p>Total properties loaded: {properties.length}</p>
 
       {/* FILTERS */}
+<div className="filters-panel">
+  <div className="filters-header">
+    <h3>Filters</h3>
+
+    <button
+      className="filters-toggle"
+      onClick={() => setFiltersOpen((o) => !o)}
+      aria-expanded={filtersOpen}
+    >
+      {filtersOpen ? "−" : "+"}
+    </button>
+  </div>
+
+  <div
+    className="filters-body"
+    style={{
+      gridTemplateRows: filtersOpen ? "1fr" : "0fr",
+    }}
+  >
+    <div className="filters-inner">
       <div className="form">
+
         <h3>Filter properties</h3>
 
         <div className="form-group">
@@ -234,7 +295,9 @@ function handleDragEnd(result) {
             <option value="">None</option>
             <option value="price-asc">Price ↑</option>
             <option value="price-desc">Price ↓</option>
+            <option value="bedrooms-asc">Bedrooms ↑</option>
             <option value="bedrooms-desc">Bedrooms ↓</option>
+            
           </select>
         </div>
 
@@ -255,8 +318,10 @@ function handleDragEnd(result) {
           />{" "}
           Show favourites panel
         </label>
+        </div>
       </div>
-
+  </div>
+</div>
 
       {/* PROPERTY LIST + FAVOURITES */}
       {displayedProperties.length === 0 ? (
@@ -276,6 +341,7 @@ function handleDragEnd(result) {
               className={`drag-layout ${
                 showFavouritesPanel ? "with-favourites" : "no-favourites"
               }`}
+            id="section1"
             >
               {/* PROPERTIES */}
               <Droppable droppableId="properties">

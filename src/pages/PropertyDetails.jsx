@@ -1,5 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import propertiesData from "../data/properties.json";
+import {  useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useFavourites } from "../context/FavouritesContext";
 import SafeImage from "../components/SafeImage";
@@ -21,6 +23,21 @@ function PropertyDetails() {
       </div>
     );
   }
+  const location = useLocation();
+
+useEffect(() => {
+  if (location.hash) {
+    const el = document.querySelector(location.hash);
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 0);
+    }
+  }
+}, [location]);
   const allImages = property.pictures || [];
   const mapQuery = encodeURIComponent(property.location);
   const mapUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
@@ -48,7 +65,7 @@ function formatDate(added) {
 
 
   return (
-  <div className="container property-details" role="main" id="section1">
+  <div className="container property-details" role="main" >
     <Link to="/">← Back to search</Link>
 
     <h2>{property.type}</h2>
@@ -75,7 +92,7 @@ function formatDate(added) {
     <p>{property.location}</p>
 
     {mainImage && (
-  <div className="property-gallery">
+  <div className="property-gallery" id="gallery">
     <div className="main-image">
       <SafeImage src={`/${mainImage}`} alt="Main property view" />
     </div>
@@ -91,6 +108,7 @@ function formatDate(added) {
         />
       ))}
     </div>
+    <div id="floorplan-anchor"></div>
     {showFloorplan && (
       <div
         className="modal-overlay"
@@ -136,11 +154,11 @@ function formatDate(added) {
       </p> 
   </div>
 
-      <div className="description-section">
+      <div className="description-section" id="description"> 
         <h3>Description</h3>
         <p className="bigger-description">{property.bigger_description}</p>
       </div>
-      <div className="map-section">
+      <div className="map-section" id="location">
         <h3>Location</h3>
         <iframe
           title="Property location map"
@@ -154,6 +172,7 @@ function formatDate(added) {
       </div>
     </div>
 </div>
+
 );
 
 }
