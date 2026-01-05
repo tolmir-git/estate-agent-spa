@@ -9,6 +9,7 @@ import {
 } from "@hello-pangea/dnd";
 
 function SearchPage() {
+  {/*initializing (g-s+-)*/} 
   const properties = propertiesData.properties;
 
   const {
@@ -77,7 +78,7 @@ function SearchPage() {
       return;
     }
   }
-
+{/*filtering*/} 
   const filteredProperties = properties.filter((property) => {
     if (filters.type && property.type !== filters.type) return false;
     if (filters.minPrice && property.price < Number(filters.minPrice)) return false;
@@ -94,7 +95,7 @@ function SearchPage() {
     }
     return true;
   });
-
+{/*sorting*/} 
   const sortedProperties = [...filteredProperties];
 
   if (sortBy === "price-asc") {
@@ -111,7 +112,7 @@ function SearchPage() {
   }
 
   let displayedProperties = sortedProperties;
-
+{/*show favourites only checkbox*/} 
   if (showFavouritesOnly) {
     displayedProperties = displayedProperties.filter((property) =>
       favourites.some((fav) => fav.id === property.id)
@@ -146,7 +147,7 @@ function SearchPage() {
             ▼
           </span>
         </div>
-
+          {/*filtering ui*/} 
         {filtersExpanded && (
           <div className="form-content" style={{ marginTop: '1.5rem' }}>
             <div className="form-group">
@@ -187,7 +188,7 @@ function SearchPage() {
               <label>Added After</label>
               <input type="date" value={filters.addedAfter} onChange={(e) => setFilters({ ...filters, addedAfter: e.target.value })} />
             </div>
-
+            {/*sorting ui*/} 
             <div className="form-group">
               <label>Sort by</label>
               <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
@@ -198,12 +199,12 @@ function SearchPage() {
                 <option value="bedrooms-desc">Bedrooms ↓</option>
               </select>
             </div>
-
+          {/*favourites only checkbox*/} 
             <label className="favourites-label">
               <input type="checkbox" checked={showFavouritesOnly} onChange={(e) => setShowFavouritesOnly(e.target.checked)} />
               {" "}Show favourites only
             </label>
-
+          {/*favourites panel checkbox*/} 
             <label className="favourites-label">
               <input type="checkbox" checked={showFavouritesPanel} onChange={(e) => setShowFavouritesPanel(e.target.checked)} />
               {" "}Show favourites panel
@@ -211,7 +212,7 @@ function SearchPage() {
           </div>
         )}
       </div>
-
+        {/*display properties and DRAG&DROP CAREFULL!!11*/} 
       {displayedProperties.length === 0 ? (
         <p>No properties match your search.</p>
       ) : (
@@ -268,6 +269,7 @@ function SearchPage() {
         </DragDropContext>
       )}
     </div>
+    //check for any missing closing tags
   );
 }
 
